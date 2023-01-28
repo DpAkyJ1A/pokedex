@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
+// import './Root.scss';
 
 export default function Root() {
   const headerTabs = [
