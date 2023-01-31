@@ -1,0 +1,22 @@
+.search-box {
+  background-color: $color-light-xl;
+  width: 600px;
+  height: 30px;
+  border-radius: 10px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+  width: 100%;
+  font-size: 1.2rem;
+  background-color: transparent;
+  color: $color-yellow;
+  border: none;
+  outline: none;
+}
+
+.search-box input::placeholder {
+  color: $color-yellow;
+}

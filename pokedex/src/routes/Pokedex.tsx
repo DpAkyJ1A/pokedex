@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { getListPokemon } from '../api/pokenode';
 import ListPokemonCard from 'components/ListPokemonCard/ListPokemonCard';
 import { NamedAPIResource } from 'pokenode-ts';
+import Search from 'components/Search/Search';
 
 export async function loader() {
   const listPokemon = await getListPokemon(0, 20);
@@ -16,6 +17,17 @@ export default function Pokedex() {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(20);
   const [fetching, setFetching] = useState(false);
+  const [query, setQuery] = useState('');
+  const [searchedPokemonAPIResourseArray, setSearchedPokemonAPIResourseArray] =
+    useState(pokemonAPIResourseArray);
+
+  useMemo(() => {
+    setSearchedPokemonAPIResourseArray(
+      pokemonAPIResourseArray.filter((pokemonAPIResourse) =>
+        pokemonAPIResourse.name.startsWith(query.toLowerCase())
+      )
+    );
+  }, [pokemonAPIResourseArray, query]);
 
   useEffect(() => {
     if (fetching) {
@@ -43,7 +55,8 @@ export default function Pokedex() {
 
   return (
     <>
-      <ListPokemonCard pokemonAPIResourseArray={pokemonAPIResourseArray} />
+      <Search query={query} setQuery={setQuery} />
+      <ListPokemonCard pokemonAPIResourseArray={searchedPokemonAPIResourseArray} />
     </>
   );
 }
