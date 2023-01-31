@@ -1,15 +1,16 @@
 import React from 'react';
-import PokemonCard, { IPokemonData } from 'components/PokemonCard/PokemonCard';
+import PokemonCard from 'components/PokemonCard/PokemonCard';
+import { NamedAPIResource } from 'pokenode-ts';
 
 interface IListPokemonCard {
-  pokemonDataArray: IPokemonData[];
+  pokemonAPIResourseArray: NamedAPIResource[];
 }
 
-export default function ListPokemonCard({ pokemonDataArray }: IListPokemonCard) {
+export default function ListPokemonCard({ pokemonAPIResourseArray }: IListPokemonCard) {
   return (
     <div className="card-list">
-      {pokemonDataArray.map((pokemonData: IPokemonData) => (
-        <PokemonCard pokemonData={pokemonData} key={pokemonData.id} />
+      {pokemonAPIResourseArray.map((pokemonAPIResourse: NamedAPIResource) => (
+        <PokemonCard pokemonAPIResourse={pokemonAPIResourse} key={pokemonAPIResourse.name} />
       ))}
     </div>
   );
