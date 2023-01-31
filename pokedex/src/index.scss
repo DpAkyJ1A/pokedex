@@ -5,14 +5,10 @@
 
 @import './routes/Root/Root.scss';
 @import './routes/DefaultError/DefaultError.scss';
-body {
-  height: 662px;
-}
-
-#root {
-  height: 100%;
-}
+@import './components/PokemonCard/PokemonCard.scss';
+@import './components/ListPokemonCard/ListPokemonCard.scss';
 
 body {
   background-color: $color-bg;
+  color: $color-light-xl;
 }

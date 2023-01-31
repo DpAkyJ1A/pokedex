@@ -4,7 +4,7 @@ import './index.scss';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from 'routes/Root/Root';
 import DefaultError from 'routes/DefaultError/DefaultError';
-import Pokedex from 'routes/Pokedex';
+import Pokedex, { loader as pokemonListLoader } from 'routes/Pokedex';
 import About from 'routes/About';
 
 const router = createBrowserRouter([
@@ -16,7 +16,11 @@ const router = createBrowserRouter([
       {
         errorElement: <DefaultError />,
         children: [
-          { index: true, element: <Pokedex /> },
+          {
+            index: true,
+            element: <Pokedex />,
+            loader: pokemonListLoader,
+          },
           {
             path: 'about',
             element: <About />,

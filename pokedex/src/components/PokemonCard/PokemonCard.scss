@@ -1,0 +1,23 @@
+.pokemon-card {
+  padding: 0.5rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 12rem;
+
+  border: 2px solid $color-light-xl;
+  border-radius: 1rem;
+}
+
+.pokemon-card__id {
+  color: $color-light;
+}
+
+.pokemon-card__img {
+
+}
+
+.pokemon-card__name {
+  font-size: 1rem;
+}
