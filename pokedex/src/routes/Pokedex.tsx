@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { getListPokemon, getPokemonByName } from '../api/pokenode';
-import { IPokemonData } from 'components/PokemonCard/PokemonCard';
+import { getListPokemon } from '../api/pokenode';
 import ListPokemonCard from 'components/ListPokemonCard/ListPokemonCard';
 import { NamedAPIResource } from 'pokenode-ts';
 
