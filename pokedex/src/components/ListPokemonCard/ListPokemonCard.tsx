@@ -1,15 +1,15 @@
 import React from 'react';
-import PokemonCard from 'components/PokemonCard/PokemonCard';
+import PokemonCard, { IPokemon } from 'components/PokemonCard/PokemonCard';
 
 interface IListPokemonCard {
-  idList: number[];
+  pokemons: IPokemon[];
 }
 
-export default function ListPokemonCard({ idList }: IListPokemonCard) {
+export default function ListPokemonCard({ pokemons }: IListPokemonCard) {
   return (
     <div className="card-list">
-      {idList.map((id: number) => (
-        <PokemonCard id={id} key={id} />
+      {pokemons.map((pokemon: IPokemon) => (
+        <PokemonCard pokemon={pokemon} key={pokemon.id} />
       ))}
     </div>
   );

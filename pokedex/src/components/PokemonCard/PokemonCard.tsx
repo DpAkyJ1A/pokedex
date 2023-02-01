@@ -2,29 +2,31 @@ import React, { useState } from 'react';
 import { Pokemon } from 'pokenode-ts';
 import { getPokemonById } from 'api/pokenode';
 
-interface IPokemonCardProps {
+export interface IPokemon {
   id: number;
+  name: string;
+  typeList: Array<string>;
 }
 
-export default function PokemonCard({ id }: IPokemonCardProps) {
+interface IPokemonCardProps {
+  pokemon: IPokemon;
+}
+
+export default function PokemonCard({ pokemon }: IPokemonCardProps) {
   const [pokemonData, setPokemonData] = useState(null as null | Pokemon);
-  getPokemonById(id).then((data) => setPokemonData(data));
+  getPokemonById(pokemon.id).then((data) => setPokemonData(data));
 
   return (
     <div className="pokemon-card">
-      <h4 className="pokemon-card__id">#{id}</h4>
+      <h4 className="pokemon-card__id">#{pokemon.id}</h4>
       {pokemonData ? (
-        <>
-          <img className="pokemon-card__img" src={pokemonData.sprites.front_default || undefined} />
-          <h2 className="pokemon-card__name">
-            {pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1)}
-          </h2>
-        </>
+        <img className="pokemon-card__img" src={pokemonData.sprites.front_default || undefined} />
       ) : (
         <div className="card-loader">
           <div className="circle"></div>
         </div>
       )}
+      <h2 className="pokemon-card__name">{pokemon.name}</h2>
     </div>
   );
 }

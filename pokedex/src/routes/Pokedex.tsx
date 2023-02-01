@@ -1,36 +1,27 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getListPokemon } from '../api/pokenode';
 import ListPokemonCard from 'components/ListPokemonCard/ListPokemonCard';
-import { NamedAPIResource } from 'pokenode-ts';
 import Search from 'components/Search/Search';
+import pokemons from 'json-pokemon';
+import { IPokemon } from 'components/PokemonCard/PokemonCard';
 
 export default function Pokedex() {
-  const [pokemonIdArray, setPokemonIdArray] = useState([] as Array<number>);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [limit, setLimit] = useState(20);
+  const [showedPokemonNumber, setShowedPokemonNumber] = useState(0);
   const [fetching, setFetching] = useState(true);
   const [query, setQuery] = useState('');
-  const [searchedPokemonIdArray, setSearchedPokemonIdArray] = useState(pokemonIdArray);
+  const [searchedPokemonArray, setSearchedPokemonArray] = useState<IPokemon[]>(pokemons);
 
   useMemo(() => {
-    if (query === '') {
-      setSearchedPokemonIdArray(pokemonIdArray);
-    }
-    if (isNaN(+query) !== true) {
-      setSearchedPokemonIdArray([pokemonIdArray[+query]]);
-    } else {
-      setSearchedPokemonIdArray([]);
-    }
-  }, [pokemonIdArray, query]);
+    setSearchedPokemonArray(
+      pokemons.filter((pokemon: IPokemon) => {
+        return pokemon.name.toLowerCase().startsWith(query.toLowerCase());
+      })
+    );
+    setShowedPokemonNumber(15);
+  }, [query]);
 
   useEffect(() => {
     if (fetching) {
-      const newIdPack = [];
-      for (let i = currentPage * limit + 1; i <= currentPage * limit + limit; i++) {
-        newIdPack.push(i);
-      }
-      setPokemonIdArray([...pokemonIdArray, ...newIdPack]);
-      setCurrentPage(currentPage + 1);
+      setShowedPokemonNumber(showedPokemonNumber + 15);
       setFetching(false);
     }
   }, [fetching]);
@@ -43,7 +34,7 @@ export default function Pokedex() {
   });
 
   const scrollHandler = (e: Event) => {
-    if (document.body.scrollHeight - (window.scrollY + window.innerHeight) < 100) {
+    if (document.body.scrollHeight - (window.scrollY + window.innerHeight) < 1000) {
       setFetching(true);
     }
   };
@@ -51,7 +42,7 @@ export default function Pokedex() {
   return (
     <>
       <Search query={query} setQuery={setQuery} />
-      <ListPokemonCard idList={pokemonIdArray} />
+      <ListPokemonCard pokemons={searchedPokemonArray.slice(0, showedPokemonNumber)} />
     </>
   );
 }
