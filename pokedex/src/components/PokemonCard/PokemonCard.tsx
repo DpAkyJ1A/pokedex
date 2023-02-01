@@ -1,35 +1,21 @@
 import React, { useState } from 'react';
-import { NamedAPIResource } from 'pokenode-ts';
-import { getPokemonByName } from 'api/pokenode';
-
-export interface IPokemonData {
-  name: string;
-  id: number;
-  spriteUrl: string;
-}
+import { Pokemon } from 'pokenode-ts';
+import { getPokemonById } from 'api/pokenode';
 
 interface IPokemonCardProps {
-  pokemonAPIResourse: NamedAPIResource;
+  id: number;
 }
 
-async function getDataFromNamedAPIResourse(pokemonAPIResourse: NamedAPIResource) {
-  const name = pokemonAPIResourse.name;
-  const restData = await getPokemonByName(name);
-  const id = restData.id;
-  const spriteUrl = restData.sprites.front_default;
-  return { name, id, spriteUrl } as IPokemonData;
-}
-
-export default function PokemonCard({ pokemonAPIResourse }: IPokemonCardProps) {
-  const [pokemonData, setPokemonData] = useState(null as null | IPokemonData);
-  getDataFromNamedAPIResourse(pokemonAPIResourse).then((data) => setPokemonData(data));
+export default function PokemonCard({ id }: IPokemonCardProps) {
+  const [pokemonData, setPokemonData] = useState(null as null | Pokemon);
+  getPokemonById(id).then((data) => setPokemonData(data));
 
   return (
     <div className="pokemon-card">
+      <h4 className="pokemon-card__id">#{id}</h4>
       {pokemonData ? (
         <>
-          <h4 className="pokemon-card__id">#{pokemonData.id}</h4>
-          <img className="pokemon-card__img" src={pokemonData.spriteUrl} />
+          <img className="pokemon-card__img" src={pokemonData.sprites.front_default || undefined} />
           <h2 className="pokemon-card__name">
             {pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1)}
           </h2>

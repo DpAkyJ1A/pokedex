@@ -1,42 +1,37 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
 import { getListPokemon } from '../api/pokenode';
 import ListPokemonCard from 'components/ListPokemonCard/ListPokemonCard';
 import { NamedAPIResource } from 'pokenode-ts';
 import Search from 'components/Search/Search';
 
-export async function loader() {
-  const listPokemon = await getListPokemon(0, 20);
-  return listPokemon.results;
-}
-
 export default function Pokedex() {
-  const [pokemonAPIResourseArray, setPokemonAPIResourseArray] = useState(
-    useLoaderData() as NamedAPIResource[]
-  );
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pokemonIdArray, setPokemonIdArray] = useState([] as Array<number>);
+  const [currentPage, setCurrentPage] = useState(0);
   const [limit, setLimit] = useState(20);
-  const [fetching, setFetching] = useState(false);
+  const [fetching, setFetching] = useState(true);
   const [query, setQuery] = useState('');
-  const [searchedPokemonAPIResourseArray, setSearchedPokemonAPIResourseArray] =
-    useState(pokemonAPIResourseArray);
+  const [searchedPokemonIdArray, setSearchedPokemonIdArray] = useState(pokemonIdArray);
 
   useMemo(() => {
-    setSearchedPokemonAPIResourseArray(
-      pokemonAPIResourseArray.filter((pokemonAPIResourse) =>
-        pokemonAPIResourse.name.startsWith(query.toLowerCase())
-      )
-    );
-  }, [pokemonAPIResourseArray, query]);
+    if (query === '') {
+      setSearchedPokemonIdArray(pokemonIdArray);
+    }
+    if (isNaN(+query) !== true) {
+      setSearchedPokemonIdArray([pokemonIdArray[+query]]);
+    } else {
+      setSearchedPokemonIdArray([]);
+    }
+  }, [pokemonIdArray, query]);
 
   useEffect(() => {
     if (fetching) {
-      getListPokemon(currentPage * limit, limit)
-        .then((response) => {
-          setPokemonAPIResourseArray([...pokemonAPIResourseArray, ...response.results]);
-          setCurrentPage((prev) => prev + 1);
-        })
-        .finally(() => setFetching(false));
+      const newIdPack = [];
+      for (let i = currentPage * limit + 1; i <= currentPage * limit + limit; i++) {
+        newIdPack.push(i);
+      }
+      setPokemonIdArray([...pokemonIdArray, ...newIdPack]);
+      setCurrentPage(currentPage + 1);
+      setFetching(false);
     }
   }, [fetching]);
 
@@ -56,7 +51,7 @@ export default function Pokedex() {
   return (
     <>
       <Search query={query} setQuery={setQuery} />
-      <ListPokemonCard pokemonAPIResourseArray={searchedPokemonAPIResourseArray} />
+      <ListPokemonCard idList={pokemonIdArray} />
     </>
   );
 }
