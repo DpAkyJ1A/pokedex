@@ -38,6 +38,7 @@
   border-radius: 50%;
   border: 2px dashed $color-light-xl;
   animation-name: spin;
+  animation-iteration-count: infinite;
   animation-duration: 0.5s;
 }
 
