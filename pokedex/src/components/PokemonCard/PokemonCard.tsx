@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Pokemon } from 'pokenode-ts';
 import { getPokemonById } from 'api/pokenode';
+import TypeSvgGenerator from './TypeSvgGenerator';
 
 export interface IPokemon {
   id: number;
@@ -18,7 +19,14 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
 
   return (
     <div className="pokemon-card">
-      <h4 className="pokemon-card__id">#{pokemon.id}</h4>
+      <div className="wrapper">
+        <h4 className="pokemon-card__id">#{pokemon.id}</h4>
+        <div className="pokemon-card__types-wrapper">
+          {pokemon.typeList.map((type) => (
+            <TypeSvgGenerator type={type} key={type}></TypeSvgGenerator>
+          ))}
+        </div>
+      </div>
       {pokemonData ? (
         <img className="pokemon-card__img" src={pokemonData.sprites.front_default || undefined} />
       ) : (
