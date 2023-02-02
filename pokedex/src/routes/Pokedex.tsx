@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ListPokemonCard from 'components/ListPokemonCard/ListPokemonCard';
 import Search from 'components/Search/Search';
 import pokemons from 'json-pokemon';
@@ -11,8 +11,12 @@ export default function Pokedex() {
   const searchedPokemonArray = useAdvancedSearch(pokemons, query);
 
   useEffect(() => {
+    setShowedPokemonNumber(25);
+  }, [searchedPokemonArray]);
+
+  useEffect(() => {
     if (fetching) {
-      setShowedPokemonNumber(showedPokemonNumber + 15);
+      setShowedPokemonNumber(showedPokemonNumber + 25);
       setFetching(false);
     }
   }, [fetching]);
@@ -25,7 +29,7 @@ export default function Pokedex() {
   });
 
   const scrollHandler = (e: Event) => {
-    if (document.body.scrollHeight - (window.scrollY + window.innerHeight) < 1000) {
+    if (document.body.scrollHeight - (window.scrollY + window.innerHeight) < 100) {
       setFetching(true);
     }
   };

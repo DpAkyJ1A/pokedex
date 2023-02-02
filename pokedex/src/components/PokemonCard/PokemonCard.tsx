@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pokemon } from 'pokenode-ts';
 import { getPokemonById } from 'api/pokenode';
 import TypeSvgGenerator from './TypeSvgGenerator';
@@ -15,7 +15,12 @@ interface IPokemonCardProps {
 
 export default function PokemonCard({ pokemon }: IPokemonCardProps) {
   const [pokemonData, setPokemonData] = useState(null as null | Pokemon);
-  getPokemonById(pokemon.id).then((data) => setPokemonData(data));
+  useEffect(() => {
+    getPokemonById(pokemon.id).then((data) => {
+      setPokemonData(data);
+      console.log(data);
+    });
+  }, []);
 
   return (
     <div className="pokemon-card">
