@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { IPokemon } from 'components/PokemonCard/PokemonCard';
 
-const AND = '&&';
-const OR = '||';
+const AND = '&';
+const OR = ';';
 
 const TYPES = [
   'normal',
@@ -28,11 +28,14 @@ const TYPES = [
 export const useAdvancedSearch = (pokemons: IPokemon[], query: string) => {
   const searchedPokemons = useMemo(() => {
     let searchedPokemons: IPokemon[] = [];
-    const queryStack: Array<string> = query.replace('/ +/g', ' ').trim().toLowerCase().split(' ');
+    const queryStack: Array<string> = splitQueryByQueryArray(query);
 
     if (!isValid(queryStack)) return [];
 
     deleteLastQueryIfUnnecessary(queryStack);
+
+    if (queryStack.length === 0) return pokemons;
+
     searchedPokemons = search(pokemons, queryStack[0]);
 
     for (let i = 1; i < queryStack.length; i += 2) {
@@ -52,6 +55,13 @@ export const useAdvancedSearch = (pokemons: IPokemon[], query: string) => {
   return searchedPokemons;
 };
 
+const splitQueryByQueryArray = (query: string) => {
+  query = query.replace(/ /g, '').trim().toLowerCase();
+  return /([&,;])/g[Symbol.split](query).filter((query) => {
+    return query !== '';
+  });
+};
+
 const arraysUnion = (arr1: IPokemon[], arr2: IPokemon[]) => {
   return [...new Set([...arr1, ...arr2])].sort((a, b) => a.id - b.id);
 };
@@ -68,7 +78,7 @@ const deleteLastQueryIfUnnecessary = (queryStack: Array<string>) => {
 
 const isValid = (queryStack: Array<string>) => {
   // example of correct query:
-  // char && 4 && fire || water
+  // char & 4 & fire ; water
 
   for (let i = 0; i < queryStack.length; i++) {
     if (i % 2 === 0) {
