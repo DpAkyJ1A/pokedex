@@ -15,14 +15,21 @@ interface IPokemonCardProps {
 
 export default function PokemonCard({ pokemon }: IPokemonCardProps) {
   const [pokemonData, setPokemonData] = useState(null as null | Pokemon);
+  const [shiny, setShiny] = useState(false);
+
   useEffect(() => {
     getPokemonById(pokemon.id).then((data) => {
       setPokemonData(data);
     });
   }, []);
 
+  // function shinyPicToggle(e: React.MouseEvent<HTMLButtonElement>) {
+  //   const target = e.currentTarget as HTMLButtonElement;
+  //   target.classList.toggle('active');
+  // }
+
   return (
-    <div className="pokemon-card">
+    <div className={`pokemon-card ${shiny ? 'active' : ''}`}>
       <div className="wrapper">
         <h4 className="pokemon-card__id">#{pokemon.id}</h4>
         <div className="pokemon-card__types-wrapper">
@@ -35,7 +42,7 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
         <div className="pokemon-card__img">
           <img className="img" src={pokemonData.sprites.front_default || undefined} />
           <img
-            className="img img_shiny disabled"
+            className={`img img_shiny ${shiny ? '' : 'disabled'}`}
             src={pokemonData.sprites.front_shiny || undefined}
           />
         </div>
@@ -44,8 +51,11 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
           <div className="circle"></div>
         </div>
       )}
-      <h2 className="pokemon-card__name">{pokemon.name}</h2>
-      <button className="pokemon-card__shiny-toggle" onClick={shinyPicToggle}>
+      <h2 className={`pokemon-card__name ${shiny ? 'active' : ''}`}>{pokemon.name}</h2>
+      <button
+        className={`pokemon-card__shiny-toggle ${shiny ? 'active' : ''}`}
+        onClick={() => setShiny(!shiny)}
+      >
         <span className="sparkle-wrapper">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
@@ -61,15 +71,4 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
       </button>
     </div>
   );
-}
-
-function shinyPicToggle(e: React.MouseEvent<HTMLButtonElement>) {
-  const target = e.currentTarget as HTMLButtonElement;
-  target.classList.toggle('active');
-  const card = target.parentElement as HTMLDivElement;
-  card.classList.toggle('active');
-  const shinyImg = card.querySelector('.img_shiny') as HTMLImageElement;
-  shinyImg.classList.toggle('disabled');
-  const cardName = card.querySelector('.pokemon-card__name') as HTMLHeadingElement;
-  cardName.classList.toggle('active');
 }
