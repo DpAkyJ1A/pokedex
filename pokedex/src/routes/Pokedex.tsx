@@ -7,7 +7,7 @@ import { useAdvancedSearch } from 'hooks/useAdvancedSearch';
 export default function Pokedex() {
   const [showedPokemonNumber, setShowedPokemonNumber] = useState(0);
   const [fetching, setFetching] = useState(true);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(localStorage.getItem('searchQuery') || '');
   const searchedPokemonArray = useAdvancedSearch(pokemons, query);
 
   useEffect(() => {
@@ -33,6 +33,10 @@ export default function Pokedex() {
       setFetching(true);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem('searchQuery', query);
+  }, [query]);
 
   return (
     <>
