@@ -53,6 +53,11 @@
 
 .pokemon-card__name {
   font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.pokemon-card__name.active {
+  color: $color-yellow;
 }
 
 .card-loader {

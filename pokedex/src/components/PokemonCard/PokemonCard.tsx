@@ -21,15 +21,6 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
     });
   }, []);
 
-  function shinyPicToggle(e: React.MouseEvent<HTMLButtonElement>) {
-    const target = e.currentTarget as HTMLButtonElement;
-    target.classList.toggle('active');
-    const card = target.parentElement as HTMLDivElement;
-    card.classList.toggle('active');
-    const shinyImg = card.querySelector('.img_shiny') as HTMLImageElement;
-    shinyImg.classList.toggle('disabled');
-  }
-
   return (
     <div className="pokemon-card">
       <div className="wrapper">
@@ -70,4 +61,15 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
       </button>
     </div>
   );
+}
+
+function shinyPicToggle(e: React.MouseEvent<HTMLButtonElement>) {
+  const target = e.currentTarget as HTMLButtonElement;
+  target.classList.toggle('active');
+  const card = target.parentElement as HTMLDivElement;
+  card.classList.toggle('active');
+  const shinyImg = card.querySelector('.img_shiny') as HTMLImageElement;
+  shinyImg.classList.toggle('disabled');
+  const cardName = card.querySelector('.pokemon-card__name') as HTMLHeadingElement;
+  cardName.classList.toggle('active');
 }
