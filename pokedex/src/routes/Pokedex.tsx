@@ -5,7 +5,7 @@ import pokemons from 'json-pokemon';
 import { useAdvancedSearch } from 'hooks/useAdvancedSearch';
 
 export default function Pokedex() {
-  const [showedPokemonNumber, setShowedPokemonNumber] = useState(0);
+  const [showedPokemonNumber, setShowedPokemonNumber] = useState(25);
   const [fetching, setFetching] = useState(true);
   const [query, setQuery] = useState(localStorage.getItem('searchQuery') || '');
   const searchedPokemonArray = useAdvancedSearch(pokemons, query);

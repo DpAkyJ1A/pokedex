@@ -29,11 +29,6 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
     localStorage.setItem(`${pokemon.name} shiny`, `${shiny}`);
   }, [shiny]);
 
-  // function shinyPicToggle(e: React.MouseEvent<HTMLButtonElement>) {
-  //   const target = e.currentTarget as HTMLButtonElement;
-  //   target.classList.toggle('active');
-  // }
-
   return (
     <div className={`pokemon-card ${shiny ? 'active' : ''}`}>
       <div className="wrapper">
