@@ -18,9 +18,17 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
   useEffect(() => {
     getPokemonById(pokemon.id).then((data) => {
       setPokemonData(data);
-      console.log(data);
     });
   }, []);
+
+  function shinyPicToggle(e: React.MouseEvent<HTMLButtonElement>) {
+    const target = e.currentTarget as HTMLButtonElement;
+    target.classList.toggle('active');
+    const card = target.parentElement as HTMLDivElement;
+    card.classList.toggle('active');
+    const shinyImg = card.querySelector('.img_shiny') as HTMLImageElement;
+    shinyImg.classList.toggle('disabled');
+  }
 
   return (
     <div className="pokemon-card">
@@ -33,13 +41,33 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
         </div>
       </div>
       {pokemonData ? (
-        <img className="pokemon-card__img" src={pokemonData.sprites.front_default || undefined} />
+        <div className="pokemon-card__img">
+          <img className="img" src={pokemonData.sprites.front_default || undefined} />
+          <img
+            className="img img_shiny disabled"
+            src={pokemonData.sprites.front_shiny || undefined}
+          />
+        </div>
       ) : (
         <div className="card-loader">
           <div className="circle"></div>
         </div>
       )}
       <h2 className="pokemon-card__name">{pokemon.name}</h2>
+      <button className="pokemon-card__shiny-toggle" onClick={shinyPicToggle}>
+        <span className="sparkle-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M259.92 262.91L216.4 149.77a9 9 0 00-16.8 0l-43.52 113.14a9 9 0 01-5.17 5.17L37.77 311.6a9 9 0 000 16.8l113.14 43.52a9 9 0 015.17 5.17l43.52 113.14a9 9 0 0016.8 0l43.52-113.14a9 9 0 015.17-5.17l113.14-43.52a9 9 0 000-16.8l-113.14-43.52a9 9 0 01-5.17-5.17zM108 68L88 16 68 68 16 88l52 20 20 52 20-52 52-20-52-20zM426.67 117.33L400 48l-26.67 69.33L304 144l69.33 26.67L400 240l26.67-69.33L496 144l-69.33-26.67z"
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="32"
+            />
+          </svg>
+        </span>
+      </button>
     </div>
   );
 }
