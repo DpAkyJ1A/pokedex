@@ -42,7 +42,7 @@ export default function Pokedex() {
     <>
       <Search query={query} setQuery={setQuery} />
       <h2>Total found: {searchedPokemonArray.length}</h2>
-      <ListPokemonCard pokemons={searchedPokemonArray.slice(0, showedPokemonNumber)} />
+      <ListPokemonCard pokemons={searchedPokemonArray} showedPokemon={showedPokemonNumber} />
     </>
   );
 }

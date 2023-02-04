@@ -9,101 +9,119 @@ export interface IGene {
   pokemons: IPokemon[] | null;
 }
 
-interface IListPokemonCard {
+interface IProps {
   pokemons: IPokemon[];
+  showedPokemon: number;
 }
 
-export default function ListPokemonCard({ pokemons }: IListPokemonCard) {
-  const [GENES] = useState([
-    {
-      romanNum: 'I',
-      name: 'Kanto',
-      idOfFirstPokemon: 1,
-      idOfLastPokemon: 151,
-      pokemons: null,
-    },
-    {
-      romanNum: 'II',
-      name: 'Johto',
-      idOfFirstPokemon: 152,
-      idOfLastPokemon: 251,
-      pokemons: null,
-    },
-    {
-      romanNum: 'III',
-      name: 'Hoenn',
-      idOfFirstPokemon: 252,
-      idOfLastPokemon: 386,
-      pokemons: null,
-    },
-    {
-      romanNum: 'IV',
-      name: 'Sinnoh',
-      idOfFirstPokemon: 387,
-      idOfLastPokemon: 493,
-      pokemons: null,
-    },
-    {
-      romanNum: 'V',
-      name: 'Unova',
-      idOfFirstPokemon: 494,
-      idOfLastPokemon: 649,
-      pokemons: null,
-    },
-    {
-      romanNum: 'VI',
-      name: 'Kalos',
-      idOfFirstPokemon: 650,
-      idOfLastPokemon: 721,
-      pokemons: null,
-    },
-    {
-      romanNum: 'VII',
-      name: 'Alola',
-      idOfFirstPokemon: 722,
-      idOfLastPokemon: 809,
-      pokemons: null,
-    },
-    {
-      romanNum: 'VIII',
-      name: 'Galar',
-      idOfFirstPokemon: 810,
-      idOfLastPokemon: 905,
-      pokemons: null,
-    },
-    {
-      romanNum: 'IX',
-      name: 'Paldea',
-      idOfFirstPokemon: 906,
-      idOfLastPokemon: 1008,
-      pokemons: null,
-    },
-  ] as IGene[]);
+const GENES: IGene[] = [
+  {
+    romanNum: 'I',
+    name: 'Kanto',
+    idOfFirstPokemon: 1,
+    idOfLastPokemon: 151,
+    pokemons: null,
+  },
+  {
+    romanNum: 'II',
+    name: 'Johto',
+    idOfFirstPokemon: 152,
+    idOfLastPokemon: 251,
+    pokemons: null,
+  },
+  {
+    romanNum: 'III',
+    name: 'Hoenn',
+    idOfFirstPokemon: 252,
+    idOfLastPokemon: 386,
+    pokemons: null,
+  },
+  {
+    romanNum: 'IV',
+    name: 'Sinnoh',
+    idOfFirstPokemon: 387,
+    idOfLastPokemon: 493,
+    pokemons: null,
+  },
+  {
+    romanNum: 'V',
+    name: 'Unova',
+    idOfFirstPokemon: 494,
+    idOfLastPokemon: 649,
+    pokemons: null,
+  },
+  {
+    romanNum: 'VI',
+    name: 'Kalos',
+    idOfFirstPokemon: 650,
+    idOfLastPokemon: 721,
+    pokemons: null,
+  },
+  {
+    romanNum: 'VII',
+    name: 'Alola',
+    idOfFirstPokemon: 722,
+    idOfLastPokemon: 809,
+    pokemons: null,
+  },
+  {
+    romanNum: 'VIII',
+    name: 'Galar',
+    idOfFirstPokemon: 810,
+    idOfLastPokemon: 905,
+    pokemons: null,
+  },
+  {
+    romanNum: 'IX',
+    name: 'Paldea',
+    idOfFirstPokemon: 906,
+    idOfLastPokemon: 1008,
+    pokemons: null,
+  },
+];
+
+export default function ListPokemonCard(props: IProps) {
+  const [genes, setGenes] = useState(GENES as IGene[]);
+
+  let cardCounter = 0;
 
   useEffect(() => {
-    for (let i = 0; i < GENES.length; i++) {
-      GENES[i].pokemons = pokemons.filter((pokemon: IPokemon) => {
-        return pokemon.id >= GENES[i].idOfFirstPokemon && pokemon.id <= GENES[i].idOfLastPokemon;
+    const genesCopy = JSON.parse(JSON.stringify(genes));
+    for (let i = 0; i < genesCopy.length; i++) {
+      genesCopy[i].pokemons = props.pokemons.filter((pokemon: IPokemon) => {
+        return (
+          pokemon.id >= genesCopy[i].idOfFirstPokemon && pokemon.id <= genesCopy[i].idOfLastPokemon
+        );
       });
-      if (GENES[i].pokemons?.length === 0) GENES[i].pokemons = null;
+      if (genesCopy[i].pokemons?.length === 0) genesCopy[i].pokemons = null;
     }
-  }, [pokemons]);
+    setGenes(genesCopy);
+    // debugger;
+    // console.log('props.pokemons');
+    // console.log(props.pokemons);
+    // console.log('GENES');
+    // console.log(GENES);
+  }, [props.pokemons, props.showedPokemon]);
 
-  if (pokemons.length === 0) return <h2 style={{ fontSize: '7rem' }}>{'¯\\_(ツ)_/¯'}</h2>;
+  if (props.pokemons.length === 0) return <h2 style={{ fontSize: '7rem' }}>{'¯\\_(ツ)_/¯'}</h2>;
   return (
     <div className="card-list">
-      {GENES.map((GEN: IGene) =>
-        GEN.pokemons ? (
-          <div className="gen" key={GEN.name}>
+      {genes.map((gen: IGene) =>
+        gen.pokemons && cardCounter <= props.showedPokemon ? (
+          <div className="gen" key={gen.name}>
             <div className="gen__title">
-              <h2>{GEN.romanNum}</h2>
-              <h3>{GEN.name}</h3>
-              <h5 style={{ marginLeft: '1rem' }}>Found: {GEN.pokemons.length}</h5>
+              <h2>{gen.romanNum}</h2>
+              <h3>{gen.name}</h3>
+              <h5 style={{ marginLeft: '1rem' }}>Found: {gen.pokemons.length}</h5>
             </div>
             <div className="gen__cards-wrapper">
-              {GEN.pokemons?.map((pokemon: IPokemon) => (
-                <PokemonCard pokemon={pokemon} key={pokemon.id} />
-              ))}
+              {gen.pokemons?.map((pokemon: IPokemon) =>
+                ++cardCounter <= props.showedPokemon ? (
+                  <PokemonCard pokemon={pokemon} key={pokemon.id} />
+                ) : (
+                  <></>
+                )
+              )}
             </div>
           </div>
         ) : (
