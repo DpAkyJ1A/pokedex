@@ -15,13 +15,19 @@ interface IPokemonCardProps {
 
 export default function PokemonCard({ pokemon }: IPokemonCardProps) {
   const [pokemonData, setPokemonData] = useState(null as null | Pokemon);
-  const [shiny, setShiny] = useState(false);
+  const [shiny, setShiny] = useState(
+    localStorage.getItem(`${pokemon.name} shiny`) === 'true' ? true : false
+  );
 
   useEffect(() => {
     getPokemonById(pokemon.id).then((data) => {
       setPokemonData(data);
     });
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(`${pokemon.name} shiny`, `${shiny}`);
+  }, [shiny]);
 
   // function shinyPicToggle(e: React.MouseEvent<HTMLButtonElement>) {
   //   const target = e.currentTarget as HTMLButtonElement;
