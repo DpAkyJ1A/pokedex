@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PokemonCard, { IPokemon } from 'components/PokemonCard/PokemonCard';
+import { useTypedSelector } from 'hooks/redux';
 
 export interface IGene {
   romanNum: string;
@@ -9,12 +10,7 @@ export interface IGene {
   pokemons: IPokemon[] | null;
 }
 
-interface IProps {
-  pokemons: IPokemon[];
-  showedPokemon: number;
-}
-
-const GENES: IGene[] = [
+export const GENES: IGene[] = [
   {
     romanNum: 'I',
     name: 'Kanto',
@@ -80,7 +76,11 @@ const GENES: IGene[] = [
   },
 ];
 
-export default function ListPokemonCard(props: IProps) {
+export default function ListPokemonCard() {
+  const { filteredAndSearchedPokemonArray, showedPokemonNumber } = useTypedSelector(
+    (state) => state.pokedex
+  );
+
   const [genes, setGenes] = useState(GENES as IGene[]);
 
   let cardCounter = 0;
@@ -88,7 +88,7 @@ export default function ListPokemonCard(props: IProps) {
   useEffect(() => {
     const genesCopy = JSON.parse(JSON.stringify(genes));
     for (let i = 0; i < genesCopy.length; i++) {
-      genesCopy[i].pokemons = props.pokemons.filter((pokemon: IPokemon) => {
+      genesCopy[i].pokemons = filteredAndSearchedPokemonArray.filter((pokemon: IPokemon) => {
         return (
           pokemon.id >= genesCopy[i].idOfFirstPokemon && pokemon.id <= genesCopy[i].idOfLastPokemon
         );
@@ -96,37 +96,33 @@ export default function ListPokemonCard(props: IProps) {
       if (genesCopy[i].pokemons?.length === 0) genesCopy[i].pokemons = null;
     }
     setGenes(genesCopy);
-    // debugger;
-    // console.log('props.pokemons');
-    // console.log(props.pokemons);
-    // console.log('GENES');
-    // console.log(GENES);
-  }, [props.pokemons, props.showedPokemon]);
+  }, [filteredAndSearchedPokemonArray, showedPokemonNumber]);
 
-  if (props.pokemons.length === 0) return <h2 style={{ fontSize: '7rem' }}>{'¯\\_(ツ)_/¯'}</h2>;
+  if (filteredAndSearchedPokemonArray.length === 0)
+    return <h2 style={{ fontSize: '7rem' }}>{'¯\\_(ツ)_/¯'}</h2>;
+
   return (
     <div className="card-list">
-      {genes.map((gen: IGene) =>
-        gen.pokemons && cardCounter <= props.showedPokemon ? (
-          <div className="gen" key={gen.name}>
-            <div className="gen__title">
-              <h2>{gen.romanNum}</h2>
-              <h3>{gen.name}</h3>
-              <h5 style={{ marginLeft: '1rem' }}>Found: {gen.pokemons.length}</h5>
+      {genes.map(
+        (gen: IGene) =>
+          gen.pokemons &&
+          cardCounter <= showedPokemonNumber && (
+            <div className="gen" key={gen.name}>
+              <div className="gen__title">
+                <h2>{gen.romanNum}</h2>
+                <h3>{gen.name}</h3>
+                <h5 style={{ marginLeft: '1rem' }}>Found: {gen.pokemons.length}</h5>
+              </div>
+              <div className="gen__cards-wrapper">
+                {gen.pokemons?.map(
+                  (pokemon: IPokemon) =>
+                    ++cardCounter <= showedPokemonNumber && (
+                      <PokemonCard pokemon={pokemon} key={pokemon.id} />
+                    )
+                )}
+              </div>
             </div>
-            <div className="gen__cards-wrapper">
-              {gen.pokemons?.map((pokemon: IPokemon) =>
-                ++cardCounter <= props.showedPokemon ? (
-                  <PokemonCard pokemon={pokemon} key={pokemon.id} />
-                ) : (
-                  <></>
-                )
-              )}
-            </div>
-          </div>
-        ) : (
-          <></>
-        )
+          )
       )}
     </div>
   );

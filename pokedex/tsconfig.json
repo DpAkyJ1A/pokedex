@@ -16,5 +16,5 @@
     "resolveJsonModule": true,
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
-  "include": ["./src/**/*", "styled.d.ts"]
+  "include": ["./src/**/*", "styled.d.ts", "src/store/index.ts"]
 }

@@ -6,6 +6,8 @@ import Root from 'routes/Root/Root';
 import DefaultError from 'routes/DefaultError/DefaultError';
 import Pokedex from 'routes/Pokedex';
 import About from 'routes/About';
+import { Provider } from 'react-redux';
+import { setupStore } from 'store';
 
 const router = createBrowserRouter([
   {
@@ -30,9 +32,13 @@ const router = createBrowserRouter([
   },
 ]);
 
+const store = setupStore();
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

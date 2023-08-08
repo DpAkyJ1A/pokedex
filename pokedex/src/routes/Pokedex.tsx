@@ -3,23 +3,20 @@ import ListPokemonCard from 'components/ListPokemonCard/ListPokemonCard';
 import Search from 'components/Search/Search';
 import pokemons from 'json-pokemon';
 import { useAdvancedSearch } from 'hooks/useAdvancedSearch';
+import { useTypedDispatch, useTypedSelector } from 'hooks/redux';
+import { pokedexSlice } from 'store/reducers/pokedexReducer';
+import Filter from 'components/Filter/Filter';
 
 export default function Pokedex() {
-  const [showedPokemonNumber, setShowedPokemonNumber] = useState(25);
-  const [fetching, setFetching] = useState(true);
-  const [query, setQuery] = useState(localStorage.getItem('searchQuery') || '');
-  const searchedPokemonArray = useAdvancedSearch(pokemons, query);
+  const { loadMorePokemons, resetShowedPokemonNumber } = pokedexSlice.actions;
+  const { showedPokemonNumber, searchQuery, filteredAndSearchedPokemonArray } = useTypedSelector(
+    (state) => state.pokedex
+  );
+  const dispatch = useTypedDispatch();
 
   useEffect(() => {
-    setShowedPokemonNumber(25);
-  }, [searchedPokemonArray]);
-
-  useEffect(() => {
-    if (fetching) {
-      setShowedPokemonNumber(showedPokemonNumber + 25);
-      setFetching(false);
-    }
-  }, [fetching]);
+    dispatch(resetShowedPokemonNumber());
+  }, [filteredAndSearchedPokemonArray]);
 
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);
@@ -28,21 +25,26 @@ export default function Pokedex() {
     };
   });
 
+  useEffect(() => {
+    scrollHandler(new Event('scroll'));
+  }, []);
+
   const scrollHandler = (e: Event) => {
     if (document.body.scrollHeight - (window.scrollY + window.innerHeight) < 100) {
-      setFetching(true);
+      dispatch(loadMorePokemons());
     }
   };
 
   useEffect(() => {
-    localStorage.setItem('searchQuery', query);
-  }, [query]);
+    localStorage.setItem('searchQuery', searchQuery);
+  }, [searchQuery]);
 
   return (
     <>
-      <Search query={query} setQuery={setQuery} />
-      <h2>Total found: {searchedPokemonArray.length}</h2>
-      <ListPokemonCard pokemons={searchedPokemonArray} showedPokemon={showedPokemonNumber} />
+      <h2>Total found: {filteredAndSearchedPokemonArray.length}</h2>
+      <Search />
+      <Filter />
+      <ListPokemonCard />
     </>
   );
 }
