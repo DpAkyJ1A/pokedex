@@ -37,9 +37,7 @@ export default function Filter() {
       <span
         onClick={() => {
           setOpenFilter(!openFilter);
-          setFilterToggleText(
-            filterToggleText.startsWith('↓') ? '↑ Filters ↑' : '↓ Filters ↓'
-          );
+          setFilterToggleText(filterToggleText.startsWith('↓') ? '↑ Filters ↑' : '↓ Filters ↓');
         }}
         className="filter__toggle"
       >

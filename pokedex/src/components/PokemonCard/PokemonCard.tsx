@@ -41,7 +41,10 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
       </div>
       {pokemonData ? (
         <div className="pokemon-card__img">
-          <img className="img" src={pokemonData.sprites.front_default || undefined} />
+          <img
+            className={`img img_not_shiny ${shiny ? 'disabled' : ''}`}
+            src={pokemonData.sprites.front_default || undefined}
+          />
           <img
             className={`img img_shiny ${shiny ? '' : 'disabled'}`}
             src={pokemonData.sprites.front_shiny || undefined}

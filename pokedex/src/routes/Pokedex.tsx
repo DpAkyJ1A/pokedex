@@ -30,7 +30,7 @@ export default function Pokedex() {
   }, []);
 
   const scrollHandler = (e: Event) => {
-    if (document.body.scrollHeight - (window.scrollY + window.innerHeight) < 100) {
+    if (document.body.scrollHeight - (window.scrollY + window.innerHeight) < 300) {
       dispatch(loadMorePokemons());
     }
   };
