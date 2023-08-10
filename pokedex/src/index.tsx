@@ -8,6 +8,7 @@ import Pokedex from 'routes/Pokedex';
 import About from 'routes/About';
 import { Provider } from 'react-redux';
 import { setupStore } from 'store';
+import PokemonRoute from 'routes/PokemonRoute/PokemonRoute';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
           {
             path: 'about',
             element: <About />,
+          },
+          {
+            path: 'pokemon/:id',
+            element: <PokemonRoute />,
           },
         ],
       },

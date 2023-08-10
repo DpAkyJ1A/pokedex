@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Pokemon } from 'pokenode-ts';
 import { getPokemonById } from 'api/pokenode';
 import TypeSvgGenerator from './TypeSvgGenerator';
+import { Link } from 'react-router-dom';
 
 export interface IPokemon {
   id: number;
@@ -73,6 +74,10 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
           </svg>
         </span>
       </button>
+      <Link
+        to={`pokemon/${pokemon.id}`}
+        className={`pokemon-card__link ${shiny ? 'active' : ''}`}
+      ></Link>
     </div>
   );
 }
