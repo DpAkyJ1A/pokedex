@@ -17,9 +17,7 @@ interface IPokemonCardProps {
 
 export default function PokemonCard({ pokemon }: IPokemonCardProps) {
   const [pokemonData, setPokemonData] = useState(null as null | Pokemon);
-  const [shiny, setShiny] = useState(
-    localStorage.getItem(`${pokemon.name} shiny`) === 'true' ? true : false
-  );
+  const [shiny, setShiny] = useState(localStorage.getItem(`${pokemon.name} shiny`) === 'true');
 
   useEffect(() => {
     getPokemonById(pokemon.id).then((data) => {

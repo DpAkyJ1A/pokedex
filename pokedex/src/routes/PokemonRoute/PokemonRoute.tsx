@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Pokemon } from 'pokenode-ts';
 import { useParams } from 'react-router-dom';
 import TypeSvgGenerator from 'components/PokemonCard/TypeSvgGenerator';
+import PokeballLoader from 'components/PokeballLoader/PokeballLoader';
+import DefaultError from 'routes/DefaultError/DefaultError';
 
 interface IMAXMIN_STATS {
   [key: string]: number;
@@ -41,21 +43,32 @@ export default function PokemonRoute() {
   useEffect(() => {
     const load = async () => {
       if (params.id) {
-        const id = +params.id;
-        const pok = await getPokemonById(id);
-        setIsLoading(false);
-        if (!pok) setIsError(true);
-        setPokemon(pok);
-        setIsShiny(
-          localStorage.getItem(`${pok.name[0].toUpperCase() + pok.name.slice(1)} shiny`) === 'true'
-            ? true
-            : false
-        );
-        console.log(pok);
+        try {
+          const id = +params.id;
+          const pok = await getPokemonById(id);
+          setIsLoading(false);
+          setPokemon(pok);
+          setIsShiny(
+            localStorage.getItem(`${pok.name[0].toUpperCase() + pok.name.slice(1)} shiny`) ===
+              'true'
+          );
+          console.log(pok);
+        } catch {
+          setIsLoading(false);
+          setIsError(true);
+        }
       }
     };
     load();
   }, [params]);
+
+  if (isLoading) {
+    return (
+      <div className="pokemon-route-loader">
+        <PokeballLoader />
+      </div>
+    );
+  }
 
   if (pokemon) {
     return (
@@ -149,8 +162,8 @@ export default function PokemonRoute() {
             ))}
           </div>
           <h5>
-            {`Total power = ${pokemon.stats[0].base_stat} + ${pokemon.stats[1].base_stat} + 
-            ${pokemon.stats[2].base_stat} + ${pokemon.stats[3].base_stat} + 
+            {`Total power = ${pokemon.stats[0].base_stat} + ${pokemon.stats[1].base_stat} +
+            ${pokemon.stats[2].base_stat} + ${pokemon.stats[3].base_stat} +
             ${pokemon.stats[4].base_stat} + ${pokemon.stats[5].base_stat} = `}
             <span>{pokemon.stats.reduce((acc, cur) => acc + cur.base_stat, 0)}</span>
           </h5>
@@ -184,6 +197,6 @@ export default function PokemonRoute() {
       </div>
     );
   } else {
-    return <h2>Error</h2>;
+    return <DefaultError />;
   }
 }

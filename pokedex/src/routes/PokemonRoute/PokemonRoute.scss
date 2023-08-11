@@ -1,3 +1,9 @@
+.pokemon-route-loader {
+  display: flex;
+  align-items: center;
+  height: calc(100vh - 90px);
+}
+
 .pokemon-route {
   display: grid;
   grid-template-columns: 1 1;
