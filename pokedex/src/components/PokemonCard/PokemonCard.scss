@@ -57,21 +57,16 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  opacity: 0;
   transition: opacity 0.3s ease;
+  transition-delay: 0.3s;
 }
 
-.img_shiny {
-  opacity: 1;
-  position: relative;
+.img_not_shiny.active,
+.img_shiny.active {
   z-index: 1;
-}
-
-.img_not_shiny.disabled {
-  opacity: 0;
-}
-
-.img_shiny.disabled {
-  opacity: 0;
+  transition: opacity 0.3s ease;
+  opacity: 1;
 }
 
 .pokemon-card__name {

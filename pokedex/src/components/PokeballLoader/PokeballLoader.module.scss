@@ -40,7 +40,7 @@
   animation: button 3s ease infinite;
 }
 
-@-webkit-keyframes roll {
+@keyframes roll {
   from {
     transform: rotate(0);
   }
@@ -50,7 +50,7 @@
   }
 }
 
-@-webkit-keyframes button {
+@keyframes button {
   from,
   50%,
   to {
