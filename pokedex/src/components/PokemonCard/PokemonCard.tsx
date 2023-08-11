@@ -3,6 +3,7 @@ import { Pokemon } from 'pokenode-ts';
 import { getPokemonById } from 'api/pokenode';
 import TypeSvgGenerator from './TypeSvgGenerator';
 import { Link } from 'react-router-dom';
+import PokeballLoader from 'components/PokeballLoader/PokeballLoader';
 
 export interface IPokemon {
   id: number;
@@ -53,7 +54,7 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
         </div>
       ) : (
         <div className="card-loader">
-          <div className="circle"></div>
+          <PokeballLoader />
         </div>
       )}
       <h2 className={`pokemon-card__name ${shiny ? 'active' : ''}`}>{pokemon.name}</h2>
