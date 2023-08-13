@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import TypeSvgGenerator from 'components/PokemonCard/TypeSvgGenerator';
 import PokeballLoader from 'components/PokeballLoader/PokeballLoader';
 import DefaultError from 'routes/DefaultError/DefaultError';
+import { getGeneration } from 'utils/getGeneration';
 
 interface IMAXMIN_STATS {
   [key: string]: number;
@@ -169,29 +170,50 @@ export default function PokemonRoute() {
           </h5>
         </section>
         <section className="more-info">
-          <div className="info-cell">
-            <h4 className="info-header">Types</h4>
-            <div style={{ display: 'flex', gap: '1rem' }}>
-              {pokemon.types.map((type, i) => (
-                <span className="svg-cont" key={`${pokemon.name}-type-${i}`}>
-                  {TypeSvgGenerator({
-                    type: type.type.name[0].toUpperCase() + type.type.name.slice(1),
-                  })}
-                </span>
-              ))}
+          <div className="more-info-column">
+            <div className="info-cell">
+              <h4 className="info-header">Types</h4>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                {pokemon.types.map((type, i) => (
+                  <span className="svg-cont" key={`${pokemon.name}-type-${i}`}>
+                    {TypeSvgGenerator({
+                      type: type.type.name[0].toUpperCase() + type.type.name.slice(1),
+                    })}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="info-cell">
+              <h4 className="info-header">Height</h4>
+              <p className="info-data">{`${pokemon.height / 10} m`}</p>
+            </div>
+            <div className="info-cell">
+              <h4 className="info-header">Weight</h4>
+              <p className="info-data">{`${pokemon.weight / 10} kg`}</p>
+            </div>
+            <div className="info-cell">
+              <h4 className="info-header">Base exp</h4>
+              <p className="info-data">{`${pokemon.base_experience}`}</p>
             </div>
           </div>
-          <div className="info-cell">
-            <h4 className="info-header">Height</h4>
-            <h4 className="info-data">{`${pokemon.height / 10} m`}</h4>
-          </div>
-          <div className="info-cell">
-            <h4 className="info-header">Weight</h4>
-            <h4 className="info-data">{`${pokemon.weight / 10} kg`}</h4>
-          </div>
-          <div className="info-cell">
-            <h4 className="info-header">Base exp</h4>
-            <h4 className="info-data">{`${pokemon.base_experience}`}</h4>
+          <div className="more-info-column">
+            <div className="info-cell">
+              <h4 className="info-header">Generation</h4>
+              <p className="info-data">
+                {getGeneration(pokemon.id)?.romanNum} {getGeneration(pokemon.id)?.name}
+              </p>
+            </div>
+            <div className="info-cell">
+              <h4 className="info-header">Abilities</h4>
+              {pokemon.abilities.map((ability, i) => (
+                <p
+                  className={`info-data info-data-abilities ${ability.is_hidden && 'color-light'}`}
+                  key={ability.ability.name}
+                >
+                  {ability.ability.name[0].toUpperCase() + ability.ability.name.slice(1)}
+                </p>
+              ))}
+            </div>
           </div>
         </section>
       </div>
