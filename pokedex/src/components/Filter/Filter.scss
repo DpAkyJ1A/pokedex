@@ -53,6 +53,10 @@
 }
 
 .filter-types-list-element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
   cursor: pointer;
   span {
     width: 2.5rem;
@@ -61,6 +65,9 @@
       width: 1.5rem;
       height: 1.5rem;
     }
+  }
+  label {
+    font-size: 0.7rem;
   }
 }
 
@@ -72,10 +79,16 @@
   svg * {
     fill: $color-light;
   }
+  label {
+    color: $color-light;
+  }
 }
 
 .filter-types-list-element.active {
   span {
     border: none;
+  }
+  label {
+    color: $color-light-xl;
   }
 }

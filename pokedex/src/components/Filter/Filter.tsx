@@ -29,6 +29,7 @@ export default function Filter() {
                 key={`${type}-type-filter`}
               >
                 {TypeSvgGenerator({ type })}
+                <label>{type}</label>
               </span>
             ))}
           </div>
