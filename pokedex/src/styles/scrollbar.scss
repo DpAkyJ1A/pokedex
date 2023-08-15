@@ -1,0 +1,21 @@
+/* width */
+::-webkit-scrollbar {
+  width: .5rem;
+  height: .5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px $color-light;
+  border-radius: .5rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $color-yellow;
+  border-radius: .5rem;
+}
+
+::-webkit-scrollbar-corner {
+  display: none;
+}
