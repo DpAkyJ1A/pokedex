@@ -2,6 +2,8 @@ import { IPokemon } from 'components/PokemonCard/PokemonCard';
 import { useMemo } from 'react';
 import { IFilter } from 'store/reducers/pokedexReducer';
 import { TYPES } from 'interfacesAndData';
+import { getGeneration } from 'utils/getGeneration';
+import { GENES } from 'components/ListPokemonCard/ListPokemonCard';
 
 export const useFilterPokemons = (pokemons: IPokemon[], filter: IFilter) => {
   const filteredPokemons = useMemo(() => {
@@ -26,6 +28,12 @@ export const useFilterPokemons = (pokemons: IPokemon[], filter: IFilter) => {
 
 // return pokemon[] with all filtered types
 export const filterPokemons = (pokemons: IPokemon[], filter: IFilter) => {
+  const filteredByTypePokemons = filterByType(pokemons, filter);
+  const filteredByGenerationPokemons = filterByGeneration(filteredByTypePokemons, filter);
+  return filteredByGenerationPokemons;
+};
+
+const filterByType = (pokemons: IPokemon[], filter: IFilter) => {
   if (!filter.types.includes(true)) return pokemons;
 
   let filteredPokemons = pokemons.slice() as IPokemon[];
@@ -33,6 +41,22 @@ export const filterPokemons = (pokemons: IPokemon[], filter: IFilter) => {
   filter.types.map((typeBool, i) => {
     if (typeBool) {
       filteredPokemons = filteredPokemons.filter((pokemon) => pokemon.typeList.includes(TYPES[i]));
+    }
+  });
+
+  return filteredPokemons;
+};
+
+const filterByGeneration = (pokemons: IPokemon[], filter: IFilter) => {
+  if (!filter.genes.includes(true)) return pokemons;
+
+  let filteredPokemons = pokemons.slice() as IPokemon[];
+
+  filter.genes.map((genBool, i) => {
+    if (genBool) {
+      filteredPokemons = filteredPokemons.filter(
+        (pokemon) => getGeneration(pokemon.id) === GENES[i]
+      );
     }
   });
 

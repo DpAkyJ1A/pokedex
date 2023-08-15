@@ -3,6 +3,7 @@ import pokemons from 'json-pokemon';
 import { arraysIntersection, searchPokemons } from 'hooks/useAdvancedSearch';
 import { TYPES } from 'interfacesAndData';
 import { filterPokemons } from 'hooks/useFilter';
+import { GENES } from 'components/ListPokemonCard/ListPokemonCard';
 
 interface IPokemon {
   id: number;
@@ -12,6 +13,7 @@ interface IPokemon {
 
 export interface IFilter {
   types: Array<boolean>;
+  genes: Array<boolean>;
 }
 
 export interface PokedexState {
@@ -24,7 +26,10 @@ export interface PokedexState {
 }
 
 const query = localStorage.getItem('searchQuery') || '';
-const filt = { types: Array.from({ length: TYPES.length }, () => false) };
+const filt = {
+  types: Array.from({ length: TYPES.length }, () => false),
+  genes: Array.from({ length: GENES.length }, () => false),
+};
 
 const initialState = {
   showedPokemonNumber: 25,

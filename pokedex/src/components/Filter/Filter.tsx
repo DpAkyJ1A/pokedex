@@ -3,6 +3,7 @@ import { useTypedDispatch, useTypedSelector } from 'hooks/redux';
 import React, { useState } from 'react';
 import { pokedexSlice } from 'store/reducers/pokedexReducer';
 import { TYPES } from 'interfacesAndData';
+import Generations from './Generations';
 
 export default function Filter() {
   const [openFilter, setOpenFilter] = useState(false);
@@ -23,7 +24,7 @@ export default function Filter() {
                 onClick={() => {
                   const copyArr = filter.types.slice();
                   copyArr[i] = !copyArr[i];
-                  dispatch(filterPokemons({ types: copyArr }));
+                  dispatch(filterPokemons({ types: copyArr, genes: filter.genes }));
                 }}
                 className={`filter-types-list-element ${filter.types[i] ? 'active' : 'inactive'}`}
                 key={`${type}-type-filter`}
@@ -34,6 +35,7 @@ export default function Filter() {
             ))}
           </div>
         </div>
+        <Generations />
       </div>
       <span
         onClick={() => {
