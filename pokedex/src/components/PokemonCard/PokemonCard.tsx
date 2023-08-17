@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Pokemon } from 'pokenode-ts';
 import { getPokemonById } from 'api/pokenode';
 import TypeSvgGenerator from './TypeSvgGenerator';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import PokeballLoader from 'components/PokeballLoader/PokeballLoader';
 
 export interface IPokemon {
@@ -18,6 +18,7 @@ interface IPokemonCardProps {
 export default function PokemonCard({ pokemon }: IPokemonCardProps) {
   const [pokemonData, setPokemonData] = useState(null as null | Pokemon);
   const [shiny, setShiny] = useState(localStorage.getItem(`${pokemon.name} shiny`) === 'true');
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
     getPokemonById(pokemon.id).then((data) => {
@@ -30,7 +31,7 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
   }, [shiny]);
 
   return (
-    <div className={`pokemon-card ${shiny ? 'active' : ''}`}>
+    <div className={`pokemon-card ${shiny ? 'active' : ''} ${selected ? 'selected' : ''}`}>
       <div className="wrapper">
         <h4 className="pokemon-card__id">#{pokemon.id}</h4>
         <div className="pokemon-card__types-wrapper">
@@ -55,9 +56,13 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
           <PokeballLoader />
         </div>
       )}
-      <h2 className={`pokemon-card__name ${shiny ? 'active' : ''}`}>{pokemon.name}</h2>
+      <h2 className={`pokemon-card__name ${shiny ? 'active' : ''} ${selected ? 'selected' : ''}`}>
+        {pokemon.name}
+      </h2>
       <button
-        className={`pokemon-card__shiny-toggle ${shiny ? 'active' : ''}`}
+        className={`pokemon-card__shiny-toggle ${shiny ? 'active' : ''} ${
+          selected ? 'selected' : ''
+        }`}
         onClick={() => setShiny(!shiny)}
       >
         <span className="sparkle-wrapper">
@@ -73,10 +78,13 @@ export default function PokemonCard({ pokemon }: IPokemonCardProps) {
           </svg>
         </span>
       </button>
-      <Link
-        to={`pokemon/${pokemon.id}`}
-        className={`pokemon-card__link ${shiny ? 'active' : ''}`}
-      ></Link>
+      <NavLink
+        to={`/pokemon/${pokemon.id}`}
+        className={({ isActive, isPending }) =>
+          `pokemon-card__link ${shiny ? 'active' : ''} ${isActive ? 'selected' : ''}
+          ${isActive ? setSelected(true) : setSelected(false)}`
+        }
+      ></NavLink>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { getPokemonById } from 'api/pokenode';
+import { getEvolutionChainByPokemonId, getPokemonById, getPokemonSpeciesById } from 'api/pokenode';
 import React, { useEffect, useState } from 'react';
 import { Pokemon } from 'pokenode-ts';
 import { useParams } from 'react-router-dom';
@@ -6,6 +6,7 @@ import TypeSvgGenerator from 'components/PokemonCard/TypeSvgGenerator';
 import PokeballLoader from 'components/PokeballLoader/PokeballLoader';
 import DefaultError from 'routes/DefaultError/DefaultError';
 import { getGeneration } from 'utils/getGeneration';
+import EvolutionSection from './EvolutionSection/EvolutionSection';
 
 interface IMAXMIN_STATS {
   [key: string]: number;
@@ -54,6 +55,8 @@ export default function PokemonRoute() {
               'true'
           );
           console.log(pok);
+          const evo = await getEvolutionChainByPokemonId(pok.id);
+          console.log(evo);
         } catch {
           setIsLoading(false);
           setIsError(true);
@@ -216,6 +219,7 @@ export default function PokemonRoute() {
             </div>
           </div>
         </section>
+        <EvolutionSection id={pokemon.id} />
       </div>
     );
   } else {
