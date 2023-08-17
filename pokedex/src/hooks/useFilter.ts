@@ -1,7 +1,7 @@
 import { IPokemon } from 'components/PokemonCard/PokemonCard';
 import { useMemo } from 'react';
 import { IFilter } from 'store/reducers/pokedexReducer';
-import { TYPES } from 'interfacesAndData';
+import { BABY, LEGENDS, MYTHICS, TYPES } from 'interfacesAndData';
 import { getGeneration } from 'utils/getGeneration';
 import { GENES } from 'components/ListPokemonCard/ListPokemonCard';
 
@@ -28,9 +28,12 @@ export const useFilterPokemons = (pokemons: IPokemon[], filter: IFilter) => {
 
 // return pokemon[] with all filtered types
 export const filterPokemons = (pokemons: IPokemon[], filter: IFilter) => {
-  const filteredByTypePokemons = filterByType(pokemons, filter);
-  const filteredByGenerationPokemons = filterByGeneration(filteredByTypePokemons, filter);
-  return filteredByGenerationPokemons;
+  let filteredPokemons = filterByType(pokemons, filter);
+  filteredPokemons = filterByGeneration(filteredPokemons, filter);
+  filteredPokemons = filterByLegendary(filteredPokemons, filter);
+  filteredPokemons = filterByMythical(filteredPokemons, filter);
+  filteredPokemons = filterByBaby(filteredPokemons, filter);
+  return filteredPokemons;
 };
 
 const filterByType = (pokemons: IPokemon[], filter: IFilter) => {
@@ -59,6 +62,42 @@ const filterByGeneration = (pokemons: IPokemon[], filter: IFilter) => {
       );
     }
   });
+
+  return filteredPokemons;
+};
+
+const filterByLegendary = (pokemons: IPokemon[], filter: IFilter) => {
+  if (!filter.legendary) return pokemons;
+
+  let filteredPokemons = pokemons.slice() as IPokemon[];
+
+  filteredPokemons = filteredPokemons.filter((pokemon) =>
+    LEGENDS.includes(pokemon.name[0].toUpperCase() + pokemon.name.slice(1))
+  );
+
+  return filteredPokemons;
+};
+
+const filterByMythical = (pokemons: IPokemon[], filter: IFilter) => {
+  if (!filter.mythical) return pokemons;
+
+  let filteredPokemons = pokemons.slice() as IPokemon[];
+
+  filteredPokemons = filteredPokemons.filter((pokemon) =>
+    MYTHICS.includes(pokemon.name[0].toUpperCase() + pokemon.name.slice(1))
+  );
+
+  return filteredPokemons;
+};
+
+const filterByBaby = (pokemons: IPokemon[], filter: IFilter) => {
+  if (!filter.baby) return pokemons;
+
+  let filteredPokemons = pokemons.slice() as IPokemon[];
+
+  filteredPokemons = filteredPokemons.filter((pokemon) =>
+    BABY.includes(pokemon.name[0].toUpperCase() + pokemon.name.slice(1))
+  );
 
   return filteredPokemons;
 };

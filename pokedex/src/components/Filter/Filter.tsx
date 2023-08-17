@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Generations from './Generations';
 import Types from './Types';
+import Feature from './Feature';
 
 export default function Filter() {
   const [openFilter, setOpenFilter] = useState(false);
@@ -11,6 +12,7 @@ export default function Filter() {
       <div className="filter__content">
         <Types />
         <Generations />
+        <Feature />
       </div>
       <span
         onClick={() => {

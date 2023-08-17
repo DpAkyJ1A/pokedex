@@ -13,11 +13,15 @@
   transition: max-height 0.2s ease;
 
   margin: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: 1 1;
+  grid-template-rows: 1 1;
+  grid-gap: 2rem;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: flex-start;
+  // gap: 2rem;
 }
 
 .filter__toggle {
@@ -41,21 +45,46 @@
   }
 }
 
-.filter-types, .filter-genes {
+.filter-types, 
+.filter-genes, 
+.filter-features {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
 
-.filter-types-list, .filter-genes-list {
+.filter-types {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.filter-genes {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.filter-features {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.filter-types-list, 
+.filter-genes-list,
+.filter-features-list {
   display: flex;
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
-.filter-types-list-element, .filter-genes-list-element {
+.filter-features-list {
+  gap: 2rem;
+}
+
+.filter-types-list-element, 
+.filter-genes-list-element,
+.filter-features-list-element {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,15 +125,17 @@
   }
 }
 
-.filter-genes {
+.filter-genes,
+.filter-features
+ {
   img {
     width: 3rem;
     height: 3rem;
-    
   }
 }
 
-.filter-genes-list-element.inactive {
+.filter-genes-list-element.inactive,
+.filter-features-list-element.inactive {
   img {
     filter: grayscale(100%);
   }

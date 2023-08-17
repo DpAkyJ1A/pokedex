@@ -18,7 +18,15 @@ export default function Types() {
             onClick={() => {
               const copyArr = filter.types.slice();
               copyArr[i] = !copyArr[i];
-              dispatch(filterPokemons({ types: copyArr, genes: filter.genes }));
+              dispatch(
+                filterPokemons({
+                  types: copyArr,
+                  genes: filter.genes,
+                  legendary: filter.legendary,
+                  mythical: filter.mythical,
+                  baby: filter.baby,
+                })
+              );
             }}
             className={`filter-types-list-element ${filter.types[i] ? 'active' : 'inactive'}`}
             key={`${type}-type-filter`}

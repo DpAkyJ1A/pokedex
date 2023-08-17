@@ -30,7 +30,15 @@ export default function Generations() {
             onClick={() => {
               const copyArr = filter.genes.slice();
               copyArr[i] = !copyArr[i];
-              dispatch(filterPokemons({ types: filter.types, genes: copyArr }));
+              dispatch(
+                filterPokemons({
+                  types: filter.types,
+                  genes: copyArr,
+                  legendary: filter.legendary,
+                  mythical: filter.mythical,
+                  baby: filter.baby,
+                })
+              );
             }}
             className={`filter-genes-list-element ${filter.genes[i] ? 'active' : 'inactive'}`}
             key={`${i}-gen-filter`}

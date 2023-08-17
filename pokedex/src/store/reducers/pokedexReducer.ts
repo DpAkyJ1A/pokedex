@@ -14,6 +14,9 @@ interface IPokemon {
 export interface IFilter {
   types: Array<boolean>;
   genes: Array<boolean>;
+  legendary: boolean;
+  mythical: boolean;
+  baby: boolean;
 }
 
 export interface PokedexState {
@@ -29,6 +32,9 @@ const query = localStorage.getItem('searchQuery') || '';
 const filt = {
   types: Array.from({ length: TYPES.length }, () => false),
   genes: Array.from({ length: GENES.length }, () => false),
+  legendary: false,
+  mythical: false,
+  baby: false,
 };
 
 const initialState = {
