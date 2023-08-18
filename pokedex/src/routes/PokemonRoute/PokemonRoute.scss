@@ -9,4 +9,13 @@
   grid-template-columns: 1 1;
   grid-template-rows: repeat(4, 1);
   grid-gap: 2rem;
+  @media screen and (max-width: $screen-big) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  @media screen and (max-width: $screen-medium) {
+    grid-gap: 1rem;
+  }
 }

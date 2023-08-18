@@ -5,6 +5,9 @@
   background-color: lighten($color-bg, 10%);
   border-radius: 1rem;
   transition: height 0.2s ease;
+  @media screen and (max-width: $screen-big) {
+    width: 80vw;
+  }
 }
 
 .filter__content {
@@ -17,11 +20,6 @@
   grid-template-columns: 1 1;
   grid-template-rows: 1 1;
   grid-gap: 2rem;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: flex-start;
-  // gap: 2rem;
 }
 
 .filter__toggle {
@@ -36,12 +34,15 @@
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   cursor: pointer;
+  @media screen and (max-width: $screen-big) {
+    width: 60vw;
+  }
 }
 
 .filter_open {
-  height: 20rem;
+  height: fit-content;
   .filter__content {
-    max-height: 20rem;
+    max-height: fit-content;
   }
 }
 
@@ -62,11 +63,19 @@
 .filter-genes {
   grid-column-start: 1;
   grid-column-end: 2;
+  @media screen and (max-width: $screen-big) {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
 }
 
 .filter-features {
   grid-column-start: 2;
   grid-column-end: 3;
+  @media screen and (max-width: $screen-big) {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
 }
 
 .filter-types-list, 
@@ -76,6 +85,9 @@
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+  @media screen and (max-width: $screen-big) {
+    gap: 2.2rem;
+  }
 }
 
 .filter-features-list {

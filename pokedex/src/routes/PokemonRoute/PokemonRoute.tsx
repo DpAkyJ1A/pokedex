@@ -60,8 +60,8 @@ export default function PokemonRoute() {
           isFemale={isFemale}
           setIsFemale={setIsFemale}
         />
-        <StatsSection pokemon={pokemon} />
         <BaseInfo pokemon={pokemon} />
+        <StatsSection pokemon={pokemon} />
         <EvolutionSection id={pokemon.id} />
       </div>
     );

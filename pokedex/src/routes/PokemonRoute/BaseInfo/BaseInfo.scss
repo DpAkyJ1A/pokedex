@@ -7,6 +7,11 @@
   height: 100%;
   padding: 2rem;
   border-radius: 2rem;
+
+  @media screen and (max-width: $screen-medium) {
+    width: 19rem;
+    padding: 1rem;
+  }
 }
 
 .base-info-wrapper {

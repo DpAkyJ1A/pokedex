@@ -8,10 +8,10 @@ export default function Root() {
       name: 'Pokedex',
       url: '/',
     },
-    {
-      name: 'About',
-      url: 'about',
-    },
+    // {
+    //   name: 'About',
+    //   url: 'about',
+    // },
   ];
 
   return (

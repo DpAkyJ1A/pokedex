@@ -10,15 +10,35 @@
   height: 25rem;
   width: 61rem;
   justify-content: flex-end;
+
+  @media screen and (max-width: $screen-big) {
+    height: 20rem;
+    width: 45rem;
+  }
+
+  @media screen and (max-width: $screen-medium) {
+    height: 15rem;
+    width: 18.5rem;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
 }
 
 .sprites-wrapper {
   position: absolute;
+  top: 0;
   left: 0;
   display: flex;
   gap: 2rem;
   opacity: 0;
   transition: opacity .3s;
+
+  @media screen and (max-width: $screen-big) {
+    gap: .5rem;
+  }
+  @media screen and (max-width: $screen-medium) {
+    height: 10rem;
+  }
 }
 
 .sprites-wrapper.active {
@@ -37,6 +57,14 @@
   h3 {
     color: $color-light;
   }
+  @media screen and (max-width: $screen-big) {
+    width: 20rem;
+    height: 20rem;
+  }
+  @media screen and (max-width: $screen-medium) {
+    width: 9rem;
+    height: 9rem;
+  }
 }
 
 .sprites-controls {
@@ -44,6 +72,10 @@
   flex-direction: column;
   width: 4rem;
   gap: 3rem;
+  @media screen and (max-width: $screen-medium) {
+    flex-direction: row;
+    width: fit-content;
+  }
 }
 
 .shiny-control, .gender-control {

@@ -6,6 +6,10 @@
   border-radius: 10px;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: $screen-big) {
+    width: 80vw;
+  }
 }
 
 .search-box input {
@@ -36,6 +40,12 @@
   padding: .3rem 0;
   cursor: pointer;
   transition: all 0.3s;
+  @media screen and (max-width: $screen-medium) {
+    right: -1.6rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: .13rem 0;
+  }
 }
 
 .search-info:hover {
@@ -106,6 +116,16 @@
   h3 {
     margin-top: 1rem;
     margin-bottom: .5rem;
+  }
+
+  @media screen and (max-width: $screen-big) {
+    max-width: 40rem;
+    max-height: 25rem;
+  }
+
+  @media screen and (max-width: $screen-medium) {
+    max-width: 90vw;
+    max-height: 80vh;
   }
 }
 
