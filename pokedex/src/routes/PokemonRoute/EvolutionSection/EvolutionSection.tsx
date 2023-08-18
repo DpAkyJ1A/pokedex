@@ -52,6 +52,7 @@ export default function EvolutionSection(props: IProps) {
   return (
     <section className="evolution-chain-section">
       <h3>Evolution Chain</h3>
+      {evolutionChain?.length === 1 && <h5>This Pokémon does not evolve</h5>}
       <div className="evolution-chain">
         {evolutionChain?.map((lvl, i) => (
           <>
