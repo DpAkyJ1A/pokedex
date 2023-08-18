@@ -1,0 +1,145 @@
+.sprites-section-wrapper {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 25rem;
+  width: 61rem;
+  justify-content: flex-end;
+}
+
+.sprites-wrapper {
+  position: absolute;
+  left: 0;
+  display: flex;
+  gap: 2rem;
+  opacity: 0;
+  transition: opacity .3s;
+  transition-delay: 0.3s;
+}
+
+.sprites-wrapper.active {
+  z-index: 1;
+  opacity: 1;
+  -webkit-transition: .3s;
+  transition: opacity .3s;
+}
+
+.sprite {
+  width: 25rem;
+  height: 25rem;
+}
+
+.sprites-controls {
+  display: flex;
+  flex-direction: column;
+  width: 4rem;
+  gap: 3rem;
+}
+
+.shiny-control, .gender-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  h4 {
+    background-color: transparent;
+    color: $color-light-xl;
+  }
+}
+
+.shiny-control {
+  h4 {
+    color: $color-yellow;
+  }
+}
+
+.gender-control {
+  h4 {
+    background-image: linear-gradient(90deg, $color-blue, $color-pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* The switch - the box around the slider */
+.gender-switch, .shiny-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  /* Hide default HTML checkbox */
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $color-light;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: $color-light-xl;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.shiny-switch {
+  input:checked + .slider {
+    background-color: $color-yellow;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px $color-yellow;
+  }
+}
+
+.gender-switch {
+  .slider {
+    background-color: $color-blue;
+  }
+
+  input:checked + .slider {
+    background-color: $color-pink;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px $color-pink;
+  }
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

@@ -1,0 +1,50 @@
+
+.stats-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: fit-content;
+  padding: 2rem;
+  border-radius: 2rem;
+  background-color: lighten($color-bg, 10%);
+  h5{
+    margin: 0 auto;
+    span{
+      font-size: 1.5rem;
+      color: $color-yellow;
+    }
+  }
+}
+
+.stats-wrapper {
+  display: flex;
+  gap: .5rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  width: 4.5rem;
+  h6 {
+    text-align: center;
+  }
+}
+
+.stat-indicator {
+  display: flex;
+  flex-direction: column-reverse;
+  span {
+    display: block;
+    width: 4.5rem;
+    height: .6rem;
+    background-color: $color-bg;
+  }
+  span+span {
+    margin-bottom: .3rem;
+  }
+  span.active {
+    background-color: $color-light-xl;
+  }
+}

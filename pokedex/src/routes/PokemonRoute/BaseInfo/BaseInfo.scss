@@ -1,0 +1,45 @@
+
+.base-info {
+  display: flex;
+  justify-content: space-between;
+  background-color: darken($color-bg, 3%);
+  width: 25rem;
+  height: 100%;
+  padding: 2rem;
+  border-radius: 2rem;
+}
+
+.base-info-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.89rem;
+}
+
+.info-cell {
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  gap: 0.5rem;
+}
+
+.info-data {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: $color-yellow;
+}
+
+.svg-cont {
+  span {
+    width: 1.7rem;
+    height: 1.7rem;
+    * {
+      width: 1.1rem !important;
+      height: 1.1rem !important;
+    }
+  }
+}
+
+.info-data-abilities.color-light {
+  color: $color-light;
+}
