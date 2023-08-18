@@ -18,7 +18,13 @@ export default function SpritesSection(props: IProps) {
         }`}
       >
         <img className="sprite" src={props.pokemon.sprites.front_default || ''} />
-        <img className="sprite" src={props.pokemon.sprites.back_default || ''} />
+        {props.pokemon.sprites.back_default ? (
+          <img className="sprite" src={props.pokemon.sprites.back_default} />
+        ) : (
+          <div className="sprite">
+            <h3>Pokemon back default sprite</h3>
+          </div>
+        )}
       </div>
       <div
         className={`sprites-wrapper shiny-sprites ${
@@ -26,7 +32,13 @@ export default function SpritesSection(props: IProps) {
         }`}
       >
         <img className="sprite" src={props.pokemon.sprites.front_shiny || ''} />
-        <img className="sprite" src={props.pokemon.sprites.back_shiny || ''} />
+        {props.pokemon.sprites.back_shiny ? (
+          <img className="sprite" src={props.pokemon.sprites.back_shiny} />
+        ) : (
+          <div className="sprite">
+            <h3>Pokemon back shiny sprite</h3>
+          </div>
+        )}
       </div>
       <div
         className={`sprites-wrapper female-sprites ${
@@ -37,10 +49,16 @@ export default function SpritesSection(props: IProps) {
           className="sprite"
           src={props.pokemon.sprites.front_female || props.pokemon.sprites.front_default || ''}
         />
-        <img
-          className="sprite"
-          src={props.pokemon.sprites.back_female || props.pokemon.sprites.back_default || ''}
-        />
+        {props.pokemon.sprites.back_female || props.pokemon.sprites.back_default ? (
+          <img
+            className="sprite"
+            src={props.pokemon.sprites.back_female || props.pokemon.sprites.back_default || ''}
+          />
+        ) : (
+          <div className="sprite">
+            <h3>Pokemon back female sprite</h3>
+          </div>
+        )}
       </div>
       <div
         className={`sprites-wrapper female-shiny-sprites ${
@@ -51,10 +69,16 @@ export default function SpritesSection(props: IProps) {
           className="sprite"
           src={props.pokemon.sprites.front_shiny_female || props.pokemon.sprites.front_shiny || ''}
         />
-        <img
-          className="sprite"
-          src={props.pokemon.sprites.back_shiny_female || props.pokemon.sprites.back_shiny || ''}
-        />
+        {props.pokemon.sprites.back_shiny_female || props.pokemon.sprites.back_shiny ? (
+          <img
+            className="sprite"
+            src={props.pokemon.sprites.back_shiny_female || props.pokemon.sprites.back_shiny || ''}
+          />
+        ) : (
+          <div className="sprite">
+            <h3>Pokemon back shiny female sprite</h3>
+          </div>
+        )}
       </div>
       <div className="sprites-controls">
         <div className="shiny-control">

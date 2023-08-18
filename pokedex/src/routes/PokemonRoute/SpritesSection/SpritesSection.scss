@@ -19,7 +19,6 @@
   gap: 2rem;
   opacity: 0;
   transition: opacity .3s;
-  transition-delay: 0.3s;
 }
 
 .sprites-wrapper.active {
@@ -32,6 +31,12 @@
 .sprite {
   width: 25rem;
   height: 25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    color: $color-light;
+  }
 }
 
 .sprites-controls {
