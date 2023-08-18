@@ -11,7 +11,7 @@
   grid-gap: 2rem;
 }
 
-.base-info {
+.pokemon-route-header {
   grid-column-start: 1;
   grid-column-end: 3;
   grid-row-start: 1;
@@ -24,7 +24,7 @@
   font-size: 2.5rem;
 }
 
-.base-info__name {
+.pokemon-route-header__name {
   font-family: 'Pokemon Hollow';
   font-size: inherit;
   letter-spacing: .3rem;
@@ -32,7 +32,7 @@
   margin-bottom: 1.5rem;
 }
 
-.base-info__id {
+.pokemon-route-header__id {
   font-size: inherit;
   color: $color-light;
 }
@@ -239,7 +239,7 @@ input:checked + .slider:before {
 }
 
 
-.more-info {
+.base-info {
   display: flex;
   justify-content: space-between;
   background-color: darken($color-bg, 3%);
@@ -249,7 +249,7 @@ input:checked + .slider:before {
   border-radius: 2rem;
 }
 
-.more-info-column {
+.base-info-column {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

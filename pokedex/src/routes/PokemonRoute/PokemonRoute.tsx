@@ -77,11 +77,11 @@ export default function PokemonRoute() {
   if (pokemon) {
     return (
       <div className="pokemon-route">
-        <section className="base-info">
-          <h2 className="base-info__name">
+        <section className="pokemon-route-header">
+          <h2 className="pokemon-route-header__name">
             {pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}
           </h2>
-          <h2 className="base-info__id">#{pokemon.id}</h2>
+          <h2 className="pokemon-route-header__id">#{pokemon.id}</h2>
         </section>
         <section className="sprites-section-wrapper">
           <div
@@ -172,8 +172,8 @@ export default function PokemonRoute() {
             <span>{pokemon.stats.reduce((acc, cur) => acc + cur.base_stat, 0)}</span>
           </h5>
         </section>
-        <section className="more-info">
-          <div className="more-info-column">
+        <section className="base-info">
+          <div className="base-info-column">
             <div className="info-cell">
               <h4 className="info-header">Types</h4>
               <div style={{ display: 'flex', gap: '1rem' }}>
@@ -199,7 +199,7 @@ export default function PokemonRoute() {
               <p className="info-data">{`${pokemon.base_experience}`}</p>
             </div>
           </div>
-          <div className="more-info-column">
+          <div className="base-info-column">
             <div className="info-cell">
               <h4 className="info-header">Generation</h4>
               <p className="info-data">
