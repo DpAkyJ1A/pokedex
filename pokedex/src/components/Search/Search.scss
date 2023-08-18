@@ -1,4 +1,5 @@
 .search-box {
+  position: relative;
   background-color: $color-light-xl;
   width: 600px;
   height: 30px;
@@ -21,4 +22,140 @@
 
 .search-box input::placeholder {
   color: $color-yellow;
+}
+
+.search-info {
+  position: absolute;
+  display: block;
+  right: -3rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid $color-light-xl;
+  text-align: center;
+  padding: .3rem 0;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.search-info:hover {
+  border: 2px solid $color-light;
+  color: $color-light;
+}
+
+.info-pop-up {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999; /* Позиционируем поверх всего остального контента */
+  display: none;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.info-pop-up.open {
+  height: 100vh;
+  overflow-y: hidden;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation-duration: 0.3s;
+  animation-name: appear;
+  animation-fill-mode: forwards;
+}
+
+.info-pop-up.close {
+  animation-duration: 0.3s;
+  animation-name: disappear;
+  animation-fill-mode: forwards;
+
+  .info-pop-up-content {
+    animation-duration: 0.3s;
+    animation-name: slideOut;
+    animation-fill-mode: forwards;
+  }
+}
+
+.info-pop-up-content {
+  background-color: $color-bg;
+  padding: 2rem;
+  border-radius: 2rem;
+
+  max-width: 50rem;
+  max-height: 30rem;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .5em;
+
+  animation-duration: 0.3s;
+  animation-name: slideIn;
+  animation-fill-mode: forwards;
+
+  h2 {
+    font-size: 2rem;
+    color: $color-yellow;
+  }
+
+  h3 {
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+  }
+}
+
+
+
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    margin-top: 100%;
+  }
+
+  to {
+    margin-top: 0;
+  }
+
+  40% {
+    margin-top: 0;
+  }
+
+  60% {
+    margin-top: 2%;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    margin-top: 0;
+  }
+
+  to {
+    margin-top: 100%;
+  }
 }
