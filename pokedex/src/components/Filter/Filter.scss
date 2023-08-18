@@ -40,9 +40,51 @@
 }
 
 .filter_open {
-  height: fit-content;
+  height: 19rem;
+  @media screen and (max-width: $screen-big) {
+    height: 33rem;
+  }
+  @media screen and (max-width: 931.5px) {
+    height: 40rem;
+  }
+  @media screen and (max-width: 842px) {
+    height: 46rem;
+  }
+  @media screen and (max-width: 559.5px) {
+    height: 52rem;
+  }
+  @media screen and (max-width: 515.5px) {
+    height: 58rem;
+  }
+  @media screen and (max-width: 466px) {
+    height: 64rem;
+  }
+  @media screen and (max-width: 371.5px) {
+    height: 70rem;
+  }
   .filter__content {
-    max-height: fit-content;
+    max-height: 19rem;
+    @media screen and (max-width: $screen-big) {
+      max-height: 33rem;
+    }
+    @media screen and (max-width: 931.5px) {
+      max-height: 40rem;
+    }
+    @media screen and (max-width: 842px) {
+      max-height: 46rem;
+    }
+    @media screen and (max-width: 559.5px) {
+      max-height: 52rem;
+    }
+    @media screen and (max-width: 515.5px) {
+      max-height: 58rem;
+    }
+    @media screen and (max-width: 466px) {
+      max-height: 64rem;
+    }
+    @media screen and (max-width: 371.5px) {
+      max-height: 70rem;
+    }
   }
 }
 
