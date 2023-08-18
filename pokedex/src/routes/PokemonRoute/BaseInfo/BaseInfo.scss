@@ -1,7 +1,7 @@
-
 .base-info {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 2rem;
   background-color: darken($color-bg, 3%);
   width: 25rem;
   height: 100%;
@@ -9,17 +9,19 @@
   border-radius: 2rem;
 }
 
-.base-info-column {
+.base-info-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 2.89rem;
+  gap: 1.5rem;
+  justify-content: space-between;
+  align-items: self-start;
+  flex-wrap: wrap;
+  max-height: 20rem;
 }
 
 .info-cell {
   display: flex;
   flex-direction: column;
-  // align-items: center;
   gap: 0.5rem;
 }
 

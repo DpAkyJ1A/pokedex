@@ -10,7 +10,8 @@ interface IProps {
 export default function BaseInfo({ pokemon }: IProps) {
   return (
     <section className="base-info">
-      <div className="base-info-column">
+      <h3>Base Info</h3>
+      <div className="base-info-wrapper">
         <div className="info-cell">
           <h4 className="info-header">Types</h4>
           <div style={{ display: 'flex', gap: '1rem' }}>
@@ -35,8 +36,6 @@ export default function BaseInfo({ pokemon }: IProps) {
           <h4 className="info-header">Base exp</h4>
           <p className="info-data">{`${pokemon.base_experience}`}</p>
         </div>
-      </div>
-      <div className="base-info-column">
         <div className="info-cell">
           <h4 className="info-header">Generation</h4>
           <p className="info-data">
